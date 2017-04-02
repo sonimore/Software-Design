@@ -19,18 +19,19 @@ class TTT3DMoverTest {
 
     @org.junit.jupiter.api.Test
     void winningMoves() {
+        TTT3DMover mov = new TTT3DMover();
         String boardString = "XOXO XO-- XO-- ----"
                 + "-O-- ---- ---- ----"
                 + "-O-- ---- ---- ----"
-                + "-O-- ---- ---- ----"
+                + "---- ---- ---- ----"
         TTT3DBoard board = boardFromString(boardString);
         List moves = new ArrayList();
         TTT3DMove move1 = new TTT3DMove(1, 4, 2, 'O');
         TTT3DMove move2 = new TTT3DMove(4, 1, 2, 'O');
         moves.add(0, move1);
         moves.add(1, move2);
-        List newBoard = winningMoves(board);
-        assertEquals(newBoard, moves);
+        List<TTT3DMove> newBoard = mov.winningMoves(board);
+        assertEquals( moves, newBoard);
 
         boardString = "XOXO OXOX XOXO OXOX"
                + "OXOX XOXO OXOX XOXO"
@@ -38,8 +39,9 @@ class TTT3DMoverTest {
                + "OXOX XOXO OXOX XOX-";
 
         board = boardFromString(boardString);
+        newBoard = mov.winningMoves(board);
         moves = Collections.emptyList();
-        assertEquals(winningMoves(board), moves)
+        assertEquals(moves, mov);
     }
 
     @org.junit.jupiter.api.Test
@@ -58,6 +60,10 @@ class TTT3DMoverTest {
     }
     public TTT3DBoard boardFromString(String s){
         Character[] boardArr = toCharacterArray(s);
+
+        TTT3DBoard board = new TTT3DBoard('O');
+        return board;
+
     }
 
     public Character[] toCharacterArray(String str) {

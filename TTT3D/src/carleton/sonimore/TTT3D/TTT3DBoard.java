@@ -66,6 +66,8 @@ public class TTT3DBoard {
         System.arraycopy(otherBoard.squareValues, 0, this.squareValues, 0, squareArrayLength);
     }
 
+
+
     /**
      * @return 'X' or 'O', depending on whose turn it is
      */
