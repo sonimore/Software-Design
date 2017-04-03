@@ -47,14 +47,20 @@ public class TTT3DBoard {
      * Initialize an empty game board. If whoStarts is 'X', then 'X' will
      * have the first turn. Otherwise, 'O' will move first.
      */
-    public TTT3DBoard(Character whoStarts) {
-        int squareArrayLength = BOARD_SIZE * BOARD_SIZE * BOARD_SIZE;
-        this.squareValues = new Character[squareArrayLength];
-        for (int k = 0; k < squareArrayLength; k++) {
-            this.squareValues[k] = EMPTY_SQUARE;
+    public TTT3DBoard(String boardStr, Character whoStarts) {
+            int squareArrayLength = BOARD_SIZE * BOARD_SIZE * BOARD_SIZE;
+            this.squareValues = new Character[squareArrayLength];
+            for (int k = 0; k < squareArrayLength; k++) {
+                this.squareValues[k] = EMPTY_SQUARE;
+            }
+            this.whoseTurn = (whoStarts == 'X' ? 'X' : 'O');
+
+            for (int i = 0; i < squareArrayLength; i++) {
+                this.squareValues[i] = new Character(boardStr.replaceAll(" ", "").charAt(i));
+            }
+
         }
-        this.whoseTurn = (whoStarts == 'X' ? 'X' : 'O');
-    }
+
 
     /**
      * Copy constructor.
