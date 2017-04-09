@@ -44,6 +44,7 @@ public class TTT3DMover {
     }
 
     private List<TTT3DMove> winningMoves(TTT3DBoard board, Character currentPlayer, List<TTT3DMove> moves) {
+<<<<<<< HEAD
         winningMovesRow(board, currentPlayer, moves);
         winningMovesColumn(board, currentPlayer, moves);
         winningMovesRightDiagonal(board, currentPlayer, moves); // diagonal from top left to bottom right
@@ -55,6 +56,20 @@ public class TTT3DMover {
         winningMovesLeftDiagonalLevel(board, currentPlayer, moves);
         winningMovesLeftDiagonalLevel2(board, currentPlayer, moves);
         winningMovesLeftDiagonalLevel3(board, currentPlayer, moves);
+=======
+       TTT3DMove move = new TTT3DMove(0, 0, 0, currentPlayer);
+       winningMovesRow(board, currentPlayer, moves);
+       winningMovesRowLevel(board, currentPlayer, moves);
+       winningMovesRightDiagonal(board, currentPlayer, moves);
+       winningMovesColumnLevel(board, currentPlayer, moves);
+       winningMovesColumn(board, currentPlayer, moves);
+       winningMovesLeftDiagonal(board, currentPlayer, moves);
+       winningMovesRightDiagonalLevels(board, currentPlayer, moves);
+       winningMovesLeftDiagonalLevels(board, currentPlayer, moves);
+       winningMovesLeftDiagonalLevels2(board, currentPlayer, moves);
+       winningMovesLeftDiagonalLevels3(board, currentPlayer, moves);
+
+>>>>>>> 419224d5263fe0f39f461b0bc13d7b07f33f0b1a
         return moves;
     }
     /**
