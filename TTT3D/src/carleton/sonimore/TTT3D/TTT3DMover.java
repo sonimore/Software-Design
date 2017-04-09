@@ -44,17 +44,17 @@ public class TTT3DMover {
     }
 
     private List<TTT3DMove> winningMoves(TTT3DBoard board, Character currentPlayer, List<TTT3DMove> moves) {
-//        TTT3DMove move = new TTT3DMove(0, 0, 0, currentPlayer);
-//       winningMovesRow(board, currentPlayer, moves);
-//       winningMovesRowLevel(board, currentPlayer, moves);
-//        winningMovesRightDiagonal(board, currentPlayer, moves);
-//        winningMovesColumnLevel(board, currentPlayer, moves);
-//        winningMovesColumn(board, currentPlayer, moves);
-//        winningMovesLeftDiagonal(board, currentPlayer, moves);
-//        winningMovesRightDiagonalLevels(board, currentPlayer, moves);
-//        winningMovesLeftDiagonalLevels(board, currentPlayer, moves);
-//        winningMovesLeftDiagonalLevels2(board, currentPlayer, moves);
-        winningMovesLeftDiagonalLevels3(board, currentPlayer, moves);
+       TTT3DMove move = new TTT3DMove(0, 0, 0, currentPlayer);
+       winningMovesRow(board, currentPlayer, moves);
+       winningMovesRowLevel(board, currentPlayer, moves);
+       winningMovesRightDiagonal(board, currentPlayer, moves);
+       winningMovesColumnLevel(board, currentPlayer, moves);
+       winningMovesColumn(board, currentPlayer, moves);
+       winningMovesLeftDiagonal(board, currentPlayer, moves);
+       winningMovesRightDiagonalLevels(board, currentPlayer, moves);
+       winningMovesLeftDiagonalLevels(board, currentPlayer, moves);
+       winningMovesLeftDiagonalLevels2(board, currentPlayer, moves);
+       winningMovesLeftDiagonalLevels3(board, currentPlayer, moves);
 
         return moves;
     }
