@@ -100,10 +100,10 @@ class TTT3DMoverTest {
     @org.junit.jupiter.api.Test
     void winningMovesRow() {
         TTT3DMover mov = new TTT3DMover();
-        String boardString =  "X-O- -XO- --X- --O-"
-                + "---- ---- ---- ----"
-                + "---- ---- ---- ----"
-                + "---- ---- ---- ----";
+        String boardString =  "---- ---- ---- ----"
+                + "---- ---- -X-- ----"
+                + "---- --X- ---- ----"
+                + "---X ---- ---- ----";
 
         TTT3DBoard board = new TTT3DBoard(boardString, 'O');
         List newBoard = mov.winningMoves(board);
