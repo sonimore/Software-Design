@@ -101,8 +101,8 @@ class TTT3DMoverTest {
     void winningMovesRow() {
         TTT3DMover mov = new TTT3DMover();
         String boardString =  "X--- ---- ---- ----"
-                + "---- -X-- -X-- ----"
-                + "---- ---- --X- ----"
+                + "-X-- ---- ---- ----"
+                + "--X- ---- ---- ----"
                 + "---- ---- ---- ----";
 
         TTT3DBoard board = new TTT3DBoard(boardString, 'O');
