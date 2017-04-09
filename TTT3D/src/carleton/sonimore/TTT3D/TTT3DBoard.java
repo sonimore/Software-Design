@@ -1,29 +1,29 @@
 package carleton.sonimore.TTT3D;
-
-import java.util.Arrays;
-
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+/**
+ * Created by nylaworker on 3/30/17.
+ */
 /**
  * TTT3DBoard represents a simple 4x4x4 3D tic-tac-toe game. Each instance
  * stores includes the contents of each of the 64 squares, plus an indicator
  * of whose turn it is ('X' or 'O').
- * <p>
- * In the 3D tic-tac-toe context, a
- * <p>
+ *
  * To keep things simple, we use the uppercase letters X and O rather than
  * something more complicated (e.g. an enumerated type) to represent players
  * and their moves. Empty squares are represented using a hyphen.
- * <p>
+ *
  * FOR DISCUSSION:
- * (1) How do you feel about my use of "this" to refer to instance variables?<br>
+ * (1) How do you feel about my use of "this" to refer to instance variables?
+ * We won't use this throughout this project.
  * (2) Does it make sense to define BOARD_SIZE and EMPTY_SQUARE instead of
  * just using 4 and '-' throughout the code? If so, then why not also define
- * constants for 'X' and 'O'?<br>
- * (3) What's missing?
- *        Initialization and/or setter for whoseTurn.
+ * constants for 'X' and 'O'?
+ *(3)What is missing?
+ *        Setter for whoseTurn?
  *        Has somebody won yet?
- *        What should makeMove do if the move is illegal?<br>
- * (4) What do you think about my use of the "ternary operator" (?:) in
- * the second constructor and at the bottom of makeMove?
  *
  * @author Jeff Ondich
  * @version 30 March 2017
@@ -36,32 +36,32 @@ public class TTT3DBoard {
     private Character whoseTurn;
 
     /**
-     * Default constructor. Initialize an empty game board, and set
-     * 'X' to be the player moving first.
-     */
-    public TTT3DBoard() {
-        this('X');
-    }
-
-    /**
-     * Initialize an empty game board. If whoStarts is 'X', then 'X' will
-     * have the first turn. Otherwise, 'O' will move first.
+     * Initialize an empty game board.
      */
     public TTT3DBoard(String boardStr, Character whoStarts) {
-            int squareArrayLength = BOARD_SIZE * BOARD_SIZE * BOARD_SIZE;
-            this.squareValues = new Character[squareArrayLength];
-            for (int k = 0; k < squareArrayLength; k++) {
-                this.squareValues[k] = EMPTY_SQUARE;
-            }
-            this.whoseTurn = (whoStarts == 'X' ? 'X' : 'O');
 
-            for (int i = 0; i < squareArrayLength; i++) {
-                this.squareValues[i] = new Character(boardStr.replaceAll(" ", "").charAt(i));
-            }
-
+        int squareArrayLength = BOARD_SIZE * BOARD_SIZE * BOARD_SIZE;
+        this.squareValues = new Character[squareArrayLength];
+        for (int i = 0; i < squareArrayLength ; i++) {
+            this.squareValues[i] = new Character(boardStr.replaceAll(" ", "").charAt(i));
         }
+        if(whoStarts == 'X'){
+            this.whoseTurn = whoStarts;
+        }
+        else{
+            this.whoseTurn = 'O';
+        }
+    }
 
 
+
+    /**
+     *
+     * @param whoseTurn
+     */
+    public void setWhoseTurn(Character whoseTurn){
+        this.whoseTurn = whoseTurn;
+    }
     /**
      * Copy constructor.
      * @param otherBoard the board to be copied
@@ -71,8 +71,6 @@ public class TTT3DBoard {
         this.squareValues = new Character[squareArrayLength];
         System.arraycopy(otherBoard.squareValues, 0, this.squareValues, 0, squareArrayLength);
     }
-
-
 
     /**
      * @return 'X' or 'O', depending on whose turn it is
@@ -101,10 +99,88 @@ public class TTT3DBoard {
         return this.squareValues[indexForPosition(level, row, column)];
     }
 
+    //public void boardPrint()
+
     /**
-     * Apply the specified move to this game board. If the move is legal,
-     * this game board reflects the change and the whoseTurn changes to the
-     * other player.
+     * @param board Takes the board that is going to be shown to the player
+     * @return the board as a string. This is also a printer method.
+     */
+    public String boardToString(TTT3DBoard board){
+        String str = new String();
+        int rowPrint = 1;
+        int levelPrint = 0;
+
+        for(int i=0; i < BOARD_SIZE*BOARD_SIZE*BOARD_SIZE; i++) {
+
+            if(rowPrint == 4 ){
+                if (levelPrint == 4){
+                    System.out.println();
+                    levelPrint = 0;
+                }
+                str =   str + String.valueOf(squareValues[i])+" ";
+                System.out.print(str);
+                str = new String();
+                rowPrint = 1;
+                levelPrint++;
+
+            }
+            else {
+                str = str + String.valueOf(squareValues[i]);
+                rowPrint++;
+            }
+        }
+        System.out.println();
+        System.out.println(board.getWhoseTurn());
+
+        return str;
+
+    }
+
+    /**
+     *This is another constructor of the board that takes a path to a txt file, such as:
+     *XOXO XO-- XO-- ----
+     *X--- ---- ---- ----
+     *X--- ---- ---- ----
+     *---- ---- ---- ----
+     *X
+     * @param path it takes the path to the txt board and reads it as a board.
+     * @return a TTT3Dboard from a file of a bord string
+     */
+    public TTT3DBoard(String path) {
+        String result = "";
+
+        int squareArrayLength = BOARD_SIZE * BOARD_SIZE * BOARD_SIZE;
+        this.squareValues = new Character[squareArrayLength];
+
+        try {
+            byte[] encoded = Files.readAllBytes(Paths.get(path));
+            result = new String(encoded, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            // No need to do anything here.
+        }
+        String resultNoSp = result.replaceAll(" ", "");
+        String resultNoCarr = resultNoSp.replaceAll("[\\r\\n]", "");
+
+        for (int i = 0; i < squareArrayLength ; i++) {
+            this.squareValues[i] = new Character(resultNoCarr.charAt(i));
+        }
+
+
+        Character whoStarts = resultNoCarr.charAt(64);
+
+        if(whoStarts == 'X'){
+            this.whoseTurn = whoStarts;
+        }
+        else{
+            this.whoseTurn = 'O';
+        }
+    }
+
+
+
+    /**
+     * Apply the specified move to this game board.
+     * If the move is legal, this game board reflects the change and the whoseTurn changes to the other player.
      * @param move the move to be made
      * @throws IndexOutOfBoundsException if the move position is out of bounds, in
      * which case this game board is not changed
@@ -125,7 +201,7 @@ public class TTT3DBoard {
             throw new IllegalArgumentException("It's not " + move.player + "'s turn");
         }
 
-        this.squareValues[indexForPosition(move.level, move.row, move.column)] = this.whoseTurn;
+        this.squareValues[indexForPosition(move.level,move.row, move.column)] = this.whoseTurn;
         this.whoseTurn = (this.whoseTurn == 'X' ? 'O' : 'X');
     }
 

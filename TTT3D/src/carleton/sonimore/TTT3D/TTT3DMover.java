@@ -33,8 +33,189 @@ public class TTT3DMover {
      * to win the game in a single turn.
      */
     public List<TTT3DMove> winningMoves(TTT3DBoard board) {
-        return new ArrayList<TTT3DMove>();
+        Character currentPlayer = board.getWhoseTurn();
+        return winningMoves(board, currentPlayer);
     }
+
+    private List<TTT3DMove> winningMoves(TTT3DBoard board, Character currentPlayer) {
+        System.out.println("Current Player: " + currentPlayer);
+        List<TTT3DMove> moves = new ArrayList();
+        return winningMoves(board, currentPlayer, moves);
+    }
+
+    private List<TTT3DMove> winningMoves(TTT3DBoard board, Character currentPlayer, List<TTT3DMove> moves) {
+//        TTT3DMove move = new TTT3DMove(0, 0, 0, currentPlayer);
+        int l = 0;
+        int r = 0;
+        int c = 0;
+        winningMovesRow(board, currentPlayer, moves, l, r, c);
+        winningMovesRightDiagonal(board, currentPlayer, moves, l, c, r);
+        winningMovesRowLevel(board, currentPlayer, moves, r, c, l);
+        winningMovesColumn(board, currentPlayer, moves, l, c, r);
+        winningMovesLeftDiagonal(board, currentPlayer, moves, l, c , r);
+        return moves;
+    }
+
+    private void winningMovesRow(TTT3DBoard board, Character currentPlayer,
+                                 List<TTT3DMove> moves, int l, int r, int c) {
+
+        TTT3DMove move = new TTT3DMove(0, 0, 0, currentPlayer);
+        int numChars = 0;
+        int numDash = 0;
+
+        for (l = 0; l < 4; l++) {
+            for (r = 0; r < 4; r++) {
+                for (c = 0; c < 4; c++) {
+                    System.out.println("Level: " + l + " Row: " + r + " Column: " + c);
+                    System.out.println("VAL: " + board.valueInSquare(l, r, c));
+                    if (board.valueInSquare(l, r, c).equals(currentPlayer)) {
+                        numChars += 1;
+                        System.out.println("Number of 'O': " + numChars);
+                    } else if (board.valueInSquare(l, r, c).equals('-')) {
+                        numDash += 1;
+                        move = new TTT3DMove(l, r, c, currentPlayer);
+                    } else {
+                        numDash += 0;
+                    }
+                    if (numChars == 3 && numDash == 1) {
+                        System.out.println("Column: " + move.column + " Row: " + move.row);
+                        moves.add(move);
+                    }
+                }
+                numDash = 0;
+                numChars = 0;
+            }
+        }
+    }
+
+
+    // row across levels
+    private void winningMovesRowLevel(TTT3DBoard board, Character currentPlayer, List<TTT3DMove> moves, int l, int c, int r) {
+        System.out.println("-----------------------------------------------------------------------------------------------------------");
+        TTT3DMove move = new TTT3DMove(0, 0, 0, currentPlayer);
+        int numChars = 0;
+        int numDash = 0;
+
+        for (r = 0; r < 4; r++) {
+            for (c = 0; c < 4; c++) {
+                for (l = 0; l < 4; l++) {
+                    System.out.println("Row: " + r + " Column: " + c);
+                    if (board.valueInSquare(l, r, c).equals(currentPlayer)) {
+                        numChars += 1;
+                        System.out.println("Number of 'O': " + numChars);
+                    } else if (board.valueInSquare(l, r, c).equals('-')) {
+                        numDash += 1;
+                        move = new TTT3DMove(l, r, c, currentPlayer);
+                    } else {
+                        numDash += 0;
+                    }
+                    if (numChars == 3 && numDash == 1) {
+                        System.out.println("Column: " + move.column + " Row: " + move.row);
+                        moves.add(move);
+                    }
+
+                }
+                numDash = 0;
+                numChars = 0;
+
+            }
+        }
+    }
+
+    private void winningMovesColumn(TTT3DBoard board, Character currentPlayer, List<TTT3DMove> moves, int l, int c, int r) {
+        System.out.println("-----------------------------------------------------------------------------------------------------------");
+        TTT3DMove move = new TTT3DMove(0, 0, 0, currentPlayer);
+        int numChars = 0;
+        int numDash = 0;
+        for (l = 0; l < 4; l++) {
+            for (c = 0; c < 4; c++) {
+                for (r = 0; r < 4; r++) {
+                    System.out.println("Level: " + l + " Row: " + r + " Column: " + c);
+                    System.out.println("Val in square: " + board.valueInSquare(l, r, c));
+                    if (board.valueInSquare(l, r, c).equals(currentPlayer)) {
+                        numChars += 1;
+                        System.out.println("Number of 'O': " + numChars);
+                    } else if (board.valueInSquare(l, r, c).equals('-')) {
+                        numDash += 1;
+                        move = new TTT3DMove(l, r, c, currentPlayer);
+                    } else {
+                        numDash += 0;
+                    }
+                    if (numChars == 3 && numDash == 1) {
+                        System.out.println("Column: " + move.column + " Row: " + move.row);
+                        moves.add(move);
+                    }
+
+                }
+                numDash = 0;
+                numChars = 0;
+
+            }
+        }
+    }
+
+    private void winningMovesRightDiagonal(TTT3DBoard board, Character currentPlayer, List<TTT3DMove> moves, int l, int c, int r) {
+        System.out.println("-----------------------------------------------------------------------------------------------------------");
+        TTT3DMove move = new TTT3DMove(0, 0, 0, currentPlayer);
+        int numChars = 0;
+        int numDash = 0;
+        for (l = 0; l < 4; l++) {
+            for (c = 0; c < 4; c++) {
+                for (r = c; r < c + 1; r++) {
+                    System.out.println("Level " + l + " Row: " + r + " Column: " + c);
+                    System.out.println("Val in square: " + board.valueInSquare(l, r, c));
+                    if (board.valueInSquare(l, r, c).equals(currentPlayer)) {
+                        numChars += 1;
+                        System.out.println("Number of 'O': " + numChars);
+                    } else if (board.valueInSquare(l, r, c).equals('-')) {
+                        numDash += 1;
+                        move = new TTT3DMove(l, r, c, currentPlayer);
+                    } else {
+                        numDash += 0;
+                    }
+                    if (numChars == 3 && numDash == 1) {
+                        System.out.println("Column: " + move.column + " Row: " + move.row + "level: ***" + move.level);
+                        moves.add(move);
+                    }
+                }
+            }
+            numDash = 0;
+            numChars = 0;
+        }
+    }
+
+    private void winningMovesLeftDiagonal(TTT3DBoard board, Character currentPlayer, List<TTT3DMove> moves, int l, int c, int r) {
+        System.out.println("-----------------------------------------------------------------------------------------------------------");
+        TTT3DMove move = new TTT3DMove(0, 0, 0, currentPlayer);
+        int numChars = 0;
+        int numDash = 0;
+       for (l = 0; l < 4; l++) {
+            for (r = 0; r < 4; r++) {
+                for (c = 3-r; c < 4-r; c++) {
+                    System.out.println("CUR Player: " + currentPlayer +  " Level: " + l + " Row: " + r + " Column: " + c);
+                    System.out.println("Value in square " + board.valueInSquare(l, r, c));
+                    if (board.valueInSquare(l, r, c).equals(currentPlayer)) {
+                        System.out.println ("TRUE");
+                        numChars += 1;
+                        System.out.println("Number of 'O': " + numChars);
+                    } else if (board.valueInSquare(l, r, c).equals('-')) {
+                        numDash += 1;
+                        move = new TTT3DMove(l, r, c, currentPlayer);
+                    } else {
+                        numDash += 0;
+                    }
+                    if (numChars == 3 && numDash == 1) {
+                        System.out.println("Level " + move.level + " Column: " + move.column + " Row: " + move.row + "level: ***");
+                        moves.add(move);
+                    }
+                }
+
+            }
+            numDash = 0;
+            numChars = 0;
+        }
+    }
+
 
     /**
      * @param board a 3D tic-tac-toe board, including existing X and O positions
@@ -57,7 +238,34 @@ public class TTT3DMover {
      * in a single turn to avoid losing.
      */
     public List<TTT3DMove> forcingMoves(TTT3DBoard board) {
-        return new ArrayList<TTT3DMove>();
+        Character currentPlayer = board.getWhoseTurn();
+        return forcingMoves(board, currentPlayer);
+    }
+    public List<TTT3DMove> forcingMoves(TTT3DBoard board, Character currentPlayer) {
+        List moves = new ArrayList();
+        int numChars = 0;
+        int numDash = 0;
+        int l;
+        int c;
+        int r;
+        for (l = 0; l < 3; l++) {
+            for (c = 0; c < 3; c++) {
+                for (r = 0; r < 3; r++) {
+                    if (board.valueInSquare(l, r, c).equals('-')) {
+                        TTT3DMove move = new TTT3DMove(l, r, c, currentPlayer);
+                        board.makeMove(move);
+                        List<TTT3DMove> listOfWins = winningMoves(board);
+                        if (listOfWins.size() >= 2) {
+                            moves.add(move);
+                            //undo move
+                            TTT3DMove undoMove = new TTT3DMove(l, r, c, '-');
+                            // board.makeMove(undoMove);
+                        }
+                    }
+                }
+            }
+        }
+        return moves;
     }
 
     /**
