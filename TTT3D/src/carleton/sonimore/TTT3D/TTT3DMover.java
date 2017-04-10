@@ -58,6 +58,7 @@ public class TTT3DMover {
         winningMovesLeftDiagonalLevel3(board, currentPlayer, moves);
         return moves;
     }
+    
     /**
      * @ param board the board showing the current state of the game
      * @ param currentPlayer the player who is going to make the next move
@@ -69,30 +70,32 @@ public class TTT3DMover {
     private void winningMovesRow(TTT3DBoard board, Character currentPlayer,
                                  List<TTT3DMove> moves) {
 
-        TTT3DMove move = new TTT3DMove(0, 0, 0, currentPlayer);
-        int numChars = 0;
+        TTT3DMove move = new TTT3DMove(0, 0, 0, currentPlayer); //initiates a move
+        int numChars = 0; // initiates the number of currentPlayer's 
+                          // moves in a row/column/diagonal
         int numDash = 0;
 
-        for (int l = 0; l < 4; l++) {
+        for (int l = 0; l < 4; l++) { // triple for-loop loops through every level, row, and column
             for (int r = 0; r < 4; r++) {
                 for (int c = 0; c < 4; c++) {
                     System.out.println("Level: " + l + " Row: " + r + " Column: " + c);
                     System.out.println("VAL: " + board.valueInSquare(l, r, c));
-                    if (board.valueInSquare(l, r, c).equals(currentPlayer)) {
+                    if (board.valueInSquare(l, r, c).equals(currentPlayer)) { // if you come across currentPlayer, add 1 to numChars
                         numChars += 1;
                         System.out.println("Number of 'O': " + numChars);
-                    } else if (board.valueInSquare(l, r, c).equals('-')) {
+                    } else if (board.valueInSquare(l, r, c).equals('-')) { // if you come across dash, add 1 to numDash
                         numDash += 1;
-                        move = new TTT3DMove(l, r, c, currentPlayer);
+                        move = new TTT3DMove(l, r, c, currentPlayer); // create a temporary move at the dash; it will be added to the
+                                                                      // list if there are also 3 currentPlayer's in a row
                     } else {
                         numDash += 0;
                     }
-                    if (numChars == 3 && numDash == 1) {
+                    if (numChars == 3 && numDash == 1) { // once you find 3 in a row and 1 dash, add the move at the dash
                         System.out.println("Column: " + move.column + " Row: " + move.row);
                         moves.add(move);
                     }
                 }
-                numDash = 0;
+                numDash = 0; // re-initiate numDash and numChars to 0 so that it can look for the next 3 in a row
                 numChars = 0;
             }
         }
@@ -103,7 +106,7 @@ public class TTT3DMover {
      * @ param currentPlayer the player who is going to make the next move
      * @ moves a list where the winning moves will be added
      *
-     * finds the winning moves along a column across a single levels
+     * finds the winning moves along a column across a single level
      */
     private void winningMovesColumn(TTT3DBoard board, Character currentPlayer, List<TTT3DMove> moves) {
         System.out.println("-----------------------------------------------------------------------------------------------------------");
@@ -172,7 +175,15 @@ public class TTT3DMover {
             numChars = 0;
         }
     }
-
+    
+    /**
+     * @ param board the board showing the current state of the game
+     * @ param currentPlayer the player who is going to make the next move
+     * @ moves a list where the winning moves will be added
+     *
+     * finds the winning moves along a diagonal in a single level from upper right
+     * to lower left
+     */
     private void winningMovesLeftDiagonal(TTT3DBoard board, Character currentPlayer, List<TTT3DMove> moves) {
         System.out.println("-----------------------------------------------------------------------------------------------------------");
         TTT3DMove move = new TTT3DMove(0, 0, 0, currentPlayer);
@@ -327,6 +338,7 @@ public class TTT3DMover {
             }
         }
     }
+    
     /**
      * @ param board the board showing the current state of the game
      * @ param currentPlayer the player who is going to make the next move
@@ -366,6 +378,14 @@ public class TTT3DMover {
 
     }
 
+     /**
+     * @ param board the board showing the current state of the game
+     * @ param currentPlayer the player who is going to make the next move
+     * @ moves a list where the winning moves will be added
+     *
+     * finds the winning moves along a diagonal across the levels from upper right
+     * to lower left
+     */
     private void winningMovesLeftDiagonalLevel (TTT3DBoard board, Character currentPlayer, List<TTT3DMove> moves) {
         System.out.println("HERE-----------------------------------------------------------------------------------------------------------");
         TTT3DMove move = new TTT3DMove(0, 0, 0, currentPlayer);
@@ -460,8 +480,6 @@ public class TTT3DMover {
         }
 
     }
-
-
 
     /**
      * @param board a 3D tic-tac-toe board, including existing X and O positions
