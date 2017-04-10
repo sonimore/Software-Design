@@ -10,8 +10,8 @@ public class Main {
 //    System.out.print(board1.valueInSquare(0,0,3));
 //      TTT3DMove a = new TTT3DMove(1,2,3,'X');
       String boardString =  "X--- ---- ---- ----"
-              + "---- X--- ---- ----"
-              + "---- ---- X--- ----"
+              + "---- -X-- ---- ----"
+              + "---- ---- --X- ----"
               + "---- ---- ---- ----";
 
       TTT3DBoard myBoard = new TTT3DBoard(boardString,'X');
