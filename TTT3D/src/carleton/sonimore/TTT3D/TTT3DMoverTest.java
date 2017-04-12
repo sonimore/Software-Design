@@ -103,7 +103,7 @@ class TTT3DMoverTest {
         String boardString =  "X--- ---- ---- ----"
                 + "-X-- ---- ---- ----"
                 + "--X- ---- ---- ----"
-                + "---- ---- ---- ----";
+                + "---X ---- ---- ----";
 
         TTT3DBoard board = new TTT3DBoard(boardString, 'O');
         List newBoard = mov.winningMoves(board);

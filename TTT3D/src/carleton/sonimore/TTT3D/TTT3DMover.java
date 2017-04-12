@@ -45,17 +45,17 @@ public class TTT3DMover {
 
     private List<TTT3DMove> winningMoves(TTT3DBoard board, Character currentPlayer, List<TTT3DMove> moves) {
 
-//        winningMovesRow(board, currentPlayer, moves);
-//        winningMovesColumn(board, currentPlayer, moves);
-//        winningMovesRightDiagonal(board, currentPlayer, moves); // diagonal from top left to bottom right
-//        winningMovesLeftDiagonal(board, currentPlayer, moves); // diagonal from top right to bottom left
-//        winningMovesRowLevel(board, currentPlayer, moves); // rows are constant while columns and levels change
-//        winningMovesColumnLevel(board, currentPlayer, moves); // columns are constant while rows and levels change
-//        winningMovesVerticalLevel(board, currentPlayer, moves);
+        winningMovesRow(board, currentPlayer, moves);
+        winningMovesColumn(board, currentPlayer, moves);
+        winningMovesRightDiagonal(board, currentPlayer, moves); // diagonal from top left to bottom right
+        winningMovesLeftDiagonal(board, currentPlayer, moves); // diagonal from top right to bottom left
+        winningMovesRowLevel(board, currentPlayer, moves); // rows are constant while columns and levels change
+        winningMovesColumnLevel(board, currentPlayer, moves); // columns are constant while rows and levels change
+        winningMovesVerticalLevel(board, currentPlayer, moves);
         winningMovesRightDiagonalLevel(board, currentPlayer, moves); // diagonal across levels from top left to bottom right
-//        winningMovesLeftDiagonalLevel(board, currentPlayer, moves);
-//        winningMovesLeftDiagonalLevel2(board, currentPlayer, moves);
-//        winningMovesLeftDiagonalLevel3(board, currentPlayer, moves);
+        winningMovesLeftDiagonalLevel(board, currentPlayer, moves);
+        winningMovesLeftDiagonalLevel2(board, currentPlayer, moves);
+        winningMovesLeftDiagonalLevel3(board, currentPlayer, moves);
         return moves;
     }
     /**
@@ -354,15 +354,17 @@ public class TTT3DMover {
                     } else {
                         numDash += 0;
                     }
+                    if (numChars == 4){
+                        moves.add(new TTT3DMove(-1, 0, 0, currentPlayer));
+                        return;
+                    }
                     if (numChars == 3 && numDash == 1) {
                         System.out.println("Column: " + move.column + " Row: " + move.row + "level: ***" + move.level);
                         moves.add(move);
                     }
                 }
             }
-
         }
-
     }
 
     private void winningMovesLeftDiagonalLevel (TTT3DBoard board, Character currentPlayer, List<TTT3DMove> moves) {
