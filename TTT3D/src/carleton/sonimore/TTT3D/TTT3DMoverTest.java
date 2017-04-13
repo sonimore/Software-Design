@@ -1,4 +1,4 @@
-package carleton.sonimore.TTT3D;
+//package carleton.sonimore.TTT3D;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
@@ -24,66 +24,74 @@ class TTT3DMoverTest {
      * it can take. It checks whether the lengths of the list are equal or if they have the same content.
      * Also it checks whether the player is correct as well as whether rows, culumns and levels are working propperly.
      */
+    /**
+     * Checks that there are two winning moves.
+     */
     @org.junit.jupiter.api.Test
-    void winningMoves() {
+    void winningMovesRowandLevel() {
         TTT3DMover mov = new TTT3DMover();
         String boardString = "XOXO XO-- XO-- ----"
                 + "X--- ---- ---- ----"
                 + "X--- ---- ---- ----"
                 + "---- ---- ---- ----";
         TTT3DBoard board = new TTT3DBoard(boardString,'X');
-        List<TTT3DMove> newBoard = mov.winningMoves(board);
-        //There should be two winning moves for X
-        assertEquals(newBoard.size(),2);
+        List<TTT3DMove> winningBoard = mov.winningMoves(board);
+        assertEquals(winningBoard.size(),2);
     }
 
+    /**
+     * Checks rows
+     */
     @org.junit.jupiter.api.Test
-    void winningMoves2mov() {
+    void winningMovesRow() {
         TTT3DMover mov = new TTT3DMover();
         String boardString =  "XOXO XO-- XO-- ----"
                 + "---- ---- ---- ----"
                 + "---- ---- ---- ----"
                 + "---- ---- ---- ----";
         TTT3DBoard board = new TTT3DBoard(boardString,'O');
-        List moves = new ArrayList();
+        List<TTT3DMove> moves = new ArrayList();
         TTT3DMove move1 = new TTT3DMove(0, 3, 1, 'O');
-        moves.add(0, move1);
-        System.out.println("Level: " + move1.level + " Row: " + move1.row + " Column: " + move1.column);
+        moves.add(move1);
         List<TTT3DMove> newBoard = mov.winningMoves(board);
-        assertEquals(moves, newBoard);
+        assertEquals(moves.get(0).getCoord(), newBoard.get(0).getCoord());
     }
-
+    /**
+     * Checks columns
+     */
 
     @org.junit.jupiter.api.Test
-    void winningMoves2MovesList() {
+    void winningMovesLevel() {
         TTT3DMover mov = new TTT3DMover();
-        String boardString =  "XOXO XO-- XO-- ----"
-                + "-O-- ---- ---- ----"
-                + "-O-- ---- ---- ----"
+        String boardString =  "X--O ---- -O-- ----"
+                + "X--- ---- ---- ----"
+                + "X--- ---- ---- ----"
                 + "---- ---- ---- ----";
-        TTT3DBoard board = new TTT3DBoard(boardString, 'O');
-        List moves = new ArrayList();
-        TTT3DMove move1 = new TTT3DMove(0, 3, 1, 'O');
-        TTT3DMove move2 = new TTT3DMove(3, 0, 1, 'O');
-        moves.add(0, move1);
-        moves.add(1, move2);
+        TTT3DBoard board = new TTT3DBoard(boardString, 'X');
+        List<TTT3DMove> moves = new ArrayList();
+        TTT3DMove move1 = new TTT3DMove(3, 0, 0, 'X');
+        moves.add(move1);
         //we will make it so that it outputs in newBoard in the same order as moves.
-        List newBoard = mov.winningMoves(board);
-        assertEquals(moves, newBoard);
+        List<TTT3DMove> newBoard = mov.winningMoves(board);
+        assertEquals(moves.get(0).getCoord(), newBoard.get(0).getCoord());
     }
-
+    /**
+     * That a full board returns nothing
+     */
     @org.junit.jupiter.api.Test
     void winningMovesEmpty() {
         TTT3DMover mov = new TTT3DMover();
         String boardString =  "XOXO OXOX XOXO OXOX"
                 + "OXOX XOXO OXOX XOXO"
                 + "XOXO OXOX XOXO OXOX"
-                + "OXOX XOXO OXOX XOX-";
-        TTT3DBoard board = new TTT3DBoard(boardString, 'O');
-        List newBoard = mov.winningMoves(board);
-        assertTrue(newBoard.isEmpty());
+                + "OXOX XOXO OXOX XOXX";
+        TTT3DBoard board = new TTT3DBoard(boardString, 'X');
+        List<TTT3DMove> newBoard = mov.winningMoves(board);
+        assertEquals(newBoard.size(), 0);
     }
-
+    /**
+     * th
+     */
     @org.junit.jupiter.api.Test
     void winningMovesEdgeCase() {
         TTT3DMover mov = new TTT3DMover();
@@ -98,36 +106,74 @@ class TTT3DMoverTest {
     }
 
     @org.junit.jupiter.api.Test
-    void winningMovesRow() {
+    void winningMovesDiagonalRow() {
         TTT3DMover mov = new TTT3DMover();
-        String boardString =  "X--- ---- ---- ----"
-                + "-X-- ---- ---- ----"
-                + "--X- ---- ---- ----"
-                + "---X ---- ---- ----";
+        String boardString =  "X-O- -XO- X-X- --O-"
+                + "---- ---- ---- ----"
+                + "---- ---- ---- ----"
+                + "---- ---- ---- ----";
 
-        TTT3DBoard board = new TTT3DBoard(boardString, 'O');
-        List newBoard = mov.winningMoves(board);
-        TTT3DMove move1 = new TTT3DMove(1,3,3,'O' );
-        List moves = new ArrayList();
+        TTT3DBoard board = new TTT3DBoard(boardString, 'X');
+        List<TTT3DMove> newBoard = mov.winningMoves(board);
+        TTT3DMove move1 = new TTT3DMove(0,3,3,'X' );
+        List<TTT3DMove> moves = new ArrayList();
         moves.add(0, move1);
-        assertEquals(moves, newBoard);
+        assertEquals(moves.get(0).getCoord(), newBoard.get(0).getCoord());
     }
 
     @org.junit.jupiter.api.Test
-    void winningMovesDiagonal() {
+    void winningMovesSuperDiagonal() {
         TTT3DMover mov = new TTT3DMover();
         String boardString =  "XO-- ---- ---- ----"
                 + "O--- -X-- ---- ----"
                 + "---- ---- --X- ----"
                 + "---- ---- ---- ----";
 
-        TTT3DBoard board = new TTT3DBoard(boardString, 'O');
-        List newBoard = mov.winningMoves(board);
-        TTT3DMove move1 = new TTT3DMove(4,4,4,'O');
-        List moves = new ArrayList();
+        TTT3DBoard board = new TTT3DBoard(boardString, 'X');
+        List<TTT3DMove> newBoard = mov.winningMoves(board);
+        TTT3DMove move1 = new TTT3DMove(3,3,3,'X');
+        List<TTT3DMove> moves = new ArrayList();
         moves.add(0, move1);
-        assertEquals(moves, newBoard);
+        assertEquals(moves.get(0).getCoord(), newBoard.get(0).getCoord());
     }
+    @org.junit.jupiter.api.Test
+    void winningMovescolum() {
+        TTT3DMover mov = new TTT3DMover();
+        String boardString =  "OOO- ---- ---- ----"
+                + "XX-- ---- ---- ----"
+                + "X--- ---- ---- ----"
+                + "---- ---- ---- ----";
+        TTT3DBoard board = new TTT3DBoard(boardString,'O');
+        List<TTT3DMove> moves = new ArrayList();
+        TTT3DMove move1 = new TTT3DMove(0, 0, 3, 'X');
+        moves.add(0, move1);
+        List<TTT3DMove> newBoard = mov.winningMoves(board);
+        assertEquals(moves.get(0).getCoord(), newBoard.get(0).getCoord());
+    }
+
+    /**
+     * This tests that both items outputed by the winning moves are the same as the expected.
+     */
+    @org.junit.jupiter.api.Test
+    void winningMoves2colums() {
+        TTT3DMover mov = new TTT3DMover();
+        String boardString =  "OOO- ---- ---- ----"
+                + "OOO- ---- ---- ----"
+                + "X--- ---- ---- ----"
+                + "---- ---- ---- ----";
+        TTT3DBoard board = new TTT3DBoard(boardString,'O');
+        List<TTT3DMove> moves = new ArrayList();
+        TTT3DMove move1 = new TTT3DMove(1, 0, 3, 'O');
+        TTT3DMove move2 = new TTT3DMove(0,0,3,'O');
+        moves.add(0, move1);
+        moves.add(1,move2);
+        List<TTT3DMove> newBoard = mov.winningMoves(board);
+        assertEquals(moves.get(1).getCoord(), newBoard.get(0).getCoord());
+        assertEquals(moves.get(0).getCoord(), newBoard.get(1).getCoord());
+
+        //assertThat(newBoard, CoreMatchers.hasItems(1,2,3,4,5));
+    }
+
 
     /**
      * Here the tests of blocking moves begin. It tests different boards and the blocking moves
@@ -142,12 +188,12 @@ class TTT3DMoverTest {
                 + "---- ---- ---- ----"
                 + "---- ---- ---- ----"
                 + "---- ---- ---- ----";
-        TTT3DBoard board = new TTT3DBoard(boardString,'X');
-        List moves = new ArrayList();
-        TTT3DMove move1 = new TTT3DMove(1, 4, 1, 'X');
+        TTT3DBoard board = new TTT3DBoard(boardString,'O');
+        List<TTT3DMove> moves = new ArrayList();
+        TTT3DMove move1 = new TTT3DMove(0, 3, 0, 'X');
         moves.add(0, move1);
         List<TTT3DMove> newBoard = mov.blockingMoves(board);
-        assertEquals(moves, newBoard);
+        assertEquals(moves.get(0).getCoord(), newBoard.get(0).getCoord());
         //test that all the moves the current moves in them
 
     }
@@ -158,42 +204,45 @@ class TTT3DMoverTest {
                 + "XO-- ---- ---- ----"
                 + "XO-- ---- ---- ----"
                 + "---- ---- ---- ----";
-        TTT3DBoard board = new TTT3DBoard(boardString,'X');
-        List moves = new ArrayList();
-        TTT3DMove move1 = new TTT3DMove(4, 1, 2, 'X');
+        TTT3DBoard board = new TTT3DBoard(boardString,'O');
+        List<TTT3DMove> moves = new ArrayList();
+        TTT3DMove move1 = new TTT3DMove(3, 0, 0, 'X');
         moves.add(0, move1);
         List<TTT3DMove> newBoard = mov.blockingMoves(board);
-        assertEquals(moves, newBoard);
+        assertEquals(moves.get(0).getCoord(), newBoard.get(0).getCoord());
     }
 
     @org.junit.jupiter.api.Test
-    void blockingMovesrow() {
+    void blockingMoves2Moves() {
         TTT3DMover mov = new TTT3DMover();
-        String boardString =  "XOXO ---- ---- ----"
+        String boardString =  "XXX- ---- ---- ----"
                 + "XO-- ---- ---- ----"
                 + "XO-- ---- ---- ----"
                 + "---- ---- ---- ----";
-        TTT3DBoard board = new TTT3DBoard(boardString,'X');
-        List moves = new ArrayList();
-        TTT3DMove move1 = new TTT3DMove(4, 2, 1, 'X');
-        moves.add(0, move1);
+        TTT3DBoard board = new TTT3DBoard(boardString,'O');
+        List<TTT3DMove> moves = new ArrayList();
+        TTT3DMove move1 = new TTT3DMove(3, 0, 0, 'X');
+        TTT3DMove move2 = new TTT3DMove(0, 0, 3, 'X');
+        moves.add(move1);
+        moves.add(move2);
         List<TTT3DMove> newBoard = mov.blockingMoves(board);
-        assertEquals(moves, newBoard);
+        assertEquals(moves.get(0).getCoord(), newBoard.get(1).getCoord());
+        assertEquals(moves.get(1).getCoord(), newBoard.get(0).getCoord());
     }
 
     @org.junit.jupiter.api.Test
-    void blockingMovescolum() {
+    void blockingMovesColum() {
         TTT3DMover mov = new TTT3DMover();
         String boardString =  "OOO- ---- ---- ----"
                 + "XX-- ---- ---- ----"
                 + "X--- ---- ---- ----"
                 + "---- ---- ---- ----";
         TTT3DBoard board = new TTT3DBoard(boardString,'X');
-        List moves = new ArrayList();
-        TTT3DMove move1 = new TTT3DMove(1, 1, 4, 'X');
+        List<TTT3DMove> moves = new ArrayList();
+        TTT3DMove move1 = new TTT3DMove(0, 0, 3, 'X');
         moves.add(0, move1);
         List<TTT3DMove> newBoard = mov.blockingMoves(board);
-        assertEquals(moves, newBoard);
+        assertEquals(moves.get(0).getCoord(), newBoard.get(0).getCoord());
     }
 
     @org.junit.jupiter.api.Test
@@ -204,11 +253,12 @@ class TTT3DMoverTest {
                 + "X--- ---- O--- ----"
                 + "---- ---- ---- ----";
         TTT3DBoard board = new TTT3DBoard(boardString,'X');
-        List moves = new ArrayList();
-        TTT3DMove move1 = new TTT3DMove(4, 4, 4, 'X');
-        moves.add(0, move1);
+        List<TTT3DMove> moves = new ArrayList();
+        TTT3DMove move1 = new TTT3DMove(3, 3, 0, 'X');
+        moves.add(move1);
         List<TTT3DMove> newBoard = mov.blockingMoves(board);
-        assertEquals(moves, newBoard);
+
+        assertEquals(moves.get(0).getCoord(), newBoard.get(0).getCoord());
     }
 
     @org.junit.jupiter.api.Test
@@ -219,11 +269,11 @@ class TTT3DMoverTest {
                 + "X--- ---- ---- ----"
                 + "---- ---- ---- ----";
         TTT3DBoard board = new TTT3DBoard(boardString,'X');
-        List moves = new ArrayList();
-        TTT3DMove move1 = new TTT3DMove(1, 4, 4, 'X');
+        List<TTT3DMove> moves = new ArrayList();
+        TTT3DMove move1 = new TTT3DMove(0, 3, 3, 'X');
         moves.add(0, move1);
         List<TTT3DMove> newBoard = mov.blockingMoves(board);
-        assertEquals(moves, newBoard);
+        assertEquals(moves.get(0).getCoord(), newBoard.get(0).getCoord());
     }
 
     void blockingMovesEmpty() {
@@ -245,36 +295,36 @@ class TTT3DMoverTest {
      */
 
     @org.junit.jupiter.api.Test
-    void forcingMovesO() {
+    void forcingMoves0() {
         TTT3DMover mov = new TTT3DMover();
         String boardString =  "--XO XO-- XO-- ---- "
                 + "XO-- ---- ---- ----"
                 + "XO-- ---- ---- ----"
                 + "---- ---- ---- ----";
-        TTT3DBoard board = new TTT3DBoard(boardString,'0');
-        List moves = new ArrayList();
-        TTT3DMove move1 = new TTT3DMove(1, 2, 1, 'O');
-        moves.add(0, move1);
+        TTT3DBoard board = new TTT3DBoard(boardString,'X');
+        List<TTT3DMove> moves = new ArrayList();
+        TTT3DMove move1 = new TTT3DMove(0, 0, 0, 'X');
+        moves.add(move1);
         List<TTT3DMove> newBoard = mov.forcingMoves(board);
-        assertEquals(moves, newBoard);
+        assertEquals(moves.get(0).getCoord(), newBoard.get(0).getCoord());
 
     }
 
     @org.junit.jupiter.api.Test
-    void forcingMovesX() {
+    void forcingMoves1() {
         TTT3DMover mov = new TTT3DMover();
-        String boardString =  "-OXO XO-- XO-- ----"
+        String boardString =  "-XX- -O-- -O-- ----"
                 + "XO-- ---- ---- ----"
                 + "XO-- ---- ---- ----"
                 + "---- ---- ---- ----";
         TTT3DBoard board = new TTT3DBoard(boardString,'X');
-        List moves = new ArrayList();
-        TTT3DMove move1 = new TTT3DMove(1, 1, 1, 'X');
-        moves.add(0, move1);
+        List<TTT3DMove> moves = new ArrayList();
+        TTT3DMove move1 = new TTT3DMove(0, 0, 0, 'X');
+        moves.add(move1);
         List<TTT3DMove> newBoard = mov.forcingMoves(board);
-        assertEquals(moves, newBoard);
+        assertEquals(moves.get(0).getCoord(), newBoard.get(0).getCoord());
     }
-
+    @org.junit.jupiter.api.Test
     void forcingMovesEmpty() {
         TTT3DMover mov = new TTT3DMover();
         String boardString =  "---- ---- ---- ----"
@@ -286,32 +336,4 @@ class TTT3DMoverTest {
         assertTrue(newBoard.isEmpty());
     }
 
-    // Test code for best move taking into account the strategy
-    // that player should use to get as close to winning in as few moves
-    @org.junit.jupiter.api.Test
-    void bestMove() {
-        TTT3DMover mov = new TTT3DMover();
-        String boardString =  "XOXX XOOX XOXO O-X-"
-                + "---- ---- ---- ----"
-                + "---- ---- ---- ----"
-                + "---- ---- ---- ----";
-
-        TTT3DBoard newBoard = new TTT3DBoard(boardString, 'O');
-        TTT3DMove move = new TTT3DMove(1, 4, 2, 'O');
-        TTT3DMove best = mov.bestMove(newBoard);
-        assertEquals(move, best);
-    }
-
-    @org.junit.jupiter.api.Test
-    void bestMove2(){
-        TTT3DMover mov = new TTT3DMover();
-        String boardString =  "-O-- OX-- XO-- ----"
-                + "--O- -X-- ---- ----"
-                + "-X-- -O-- ---- ----"
-                + "---- ---- -XX- ----";
-        TTT3DBoard newBoard = new TTT3DBoard(boardString, 'O');
-        TTT3DMove move = new TTT3DMove(3, 2,1,'O');
-        TTT3DMove best = mov.bestMove(newBoard);
-        assertEquals(move, best);
-    }
 }

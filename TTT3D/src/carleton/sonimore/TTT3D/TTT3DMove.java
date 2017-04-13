@@ -1,15 +1,10 @@
-package carleton.sonimore.TTT3D;
+//package carleton.sonimore.TTT3D;
 
 /**
- * This class represents a single move on a 4x4x4 3D tic-tac-toe board.
- *
- * FOR DISCUSSION: What do you think about using public instance variables
- * here instead of getters like "public int getRow()"?
- *
- * @author Jeff Ondich
- * @version 30 March 2017
+ * Created by Jeff Ondich
+ * Edited by Sonia Moreno and Nyla Worker
+ * We added a getCoordinates method.
  */
-
 public class TTT3DMove {
     public int level;
     public int row;
@@ -22,5 +17,15 @@ public class TTT3DMove {
         this.column = column;
         this.player = player;
     }
-}
 
+    /**
+     * This methods allows easy comparison in testing.
+     * @return a string with the coordinates in this order "LevelColumRow"
+     */
+    public String getCoord(){
+        String coordinates;
+        coordinates = Integer.toString(level) + Integer.toString(column) + Integer.toString(row);
+        return coordinates;
+    }
+
+}

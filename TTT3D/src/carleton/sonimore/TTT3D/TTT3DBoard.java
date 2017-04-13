@@ -1,8 +1,9 @@
-package carleton.sonimore.TTT3D;
+//package carleton.sonimore.TTT3D;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 /**
  * Created by nylaworker on 3/30/17.
  */
@@ -215,5 +216,40 @@ public class TTT3DBoard {
      */
     private int indexForPosition(int level, int row, int column) {
         return BOARD_SIZE * BOARD_SIZE * level + BOARD_SIZE * row + column;
+    }
+
+    public void printNewBoard(TTT3DBoard board, List<TTT3DMove> moves){
+        String str = new String();
+        int rowPrint = 1;
+        int levelPrint = 0;
+
+
+        for (int i = 0; i < moves.size(); i++){
+            TTT3DMove move = moves.get(i);
+            int ofMove = indexForPosition(move.level,move.row,move.column);
+            squareValues[ofMove] = '*';
+        }
+
+        for(int i=0; i < BOARD_SIZE*BOARD_SIZE*BOARD_SIZE; i++) {
+
+            if(rowPrint == 4 ){
+                if (levelPrint == 4){
+                    System.out.println();
+                    levelPrint = 0;
+                }
+                str =   str + String.valueOf(squareValues[i])+" ";
+                System.out.print(str);
+                str = new String();
+                rowPrint = 1;
+                levelPrint++;
+
+            }
+            else {
+                str = str + String.valueOf(squareValues[i]);
+                rowPrint++;
+            }
+        }
+        System.out.println();
+        System.out.println(board.getWhoseTurn());
     }
 }
