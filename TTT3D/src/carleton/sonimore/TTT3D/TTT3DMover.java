@@ -9,7 +9,7 @@ import java.util.List;
  * TTT3DMover's job is to analyze a TTT3DBoard and make choices about what move
  * a player should make next. A TT3DMover object could be used as a key component
  * of the "AI" player in a full-blown 3D tic-tac-toe application.
- * <p>
+ *
  * In phase 3 of this assignment, you'll implement the methods stubbed and
  * documented below. In phase 2 (which comes before phase 3, as you might guess),
  * you'll create a JUnit TTT3DMoverTest class with a suitably rich collection of
