@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head> 
+	<title> Search Results </title>
+	<script type="text/javascript" src="{{ url_for('static', filename='spacificInfo.js') }}"></script>
+	<script type = "text/javascript" src = "{{ url_for('static', filename= 'neo-config.js')}}" ></script>
+	<link rel="stylesheet" type="text/css" href="../static/results.css" />
+</head>
+<body onload="getInfo('{{message}}')">
+	<a href='/'><button> Home</button></a>
+	<div id="header"> {{message}} </div>
+	<p>Hover over an element in the table for more information.</p>
+	<p><table id="results_table" align="center">
+    </table></p> 	
+</body>
+</html>

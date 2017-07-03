@@ -1,0 +1,112 @@
+/*
+    results.css
+    
+    Ethan Somes
+    Sonia Moreno 
+    May 15, 2017
+
+
+    Style sheet for AsteroidOfDay.html
+    CS 257, Spring 2017.
+*/
+
+table {
+    border-collapse: collapse;
+    text-align: left;
+    color: #081a38; 
+ 	font-family: 'Open Sans Condensed', sans-serif;
+}
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+tr:nth-child(even) {
+	background-color: #dee3e8
+}
+tr:nth-child(odd){
+	background-color: #b6b8ba
+}
+
+body {
+	color: white; 
+ 	font-family: 'Open Sans Condensed', sans-serif;
+    margin: 100px;
+    padding: 30px;
+    height: 100%;
+    text-align: center; 
+    opacity: .8; 
+  	z-index: -1;
+  	background: url(http://www.as.utexas.edu/~fritz/imgs/M35-RADECbest.jpeg);
+}
+
+#header {
+ color: white; 
+ font-family: 'Open Sans Condensed', sans-serif; 
+ font-size: 64px; 
+ font-weight: 700; 
+ line-height: 64px; 
+ margin: 0 0 0; 
+ padding: 20px 30px; 
+ text-align: center; 
+ text-transform: uppercase;
+ opacity: .8; 
+ z-index: -1;
+ background: url(http://www.as.utexas.edu/~fritz/imgs/M35-RADECbest.jpeg);
+}
+
+
+html { 
+  background: url(http://www.as.utexas.edu/~fritz/imgs/M35-RADECbest.jpeg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}

@@ -1,0 +1,45 @@
+Ethan Somes\
+Nyla Worker\
+Sonia Moreno\
+Phase 2\
+____________________________________________________________________________________________\
+\
+Tables:\
+\
+CREATE TABLE neo (
+	object TEXT,
+	CloseApp TEXT,
+	Cadistance TEXT,
+	CAdistanceau TEXT,
+	Verelaa FLOAT,
+	Vinf FLOAT,
+	Hmag FLOAT,
+	EstDistance TEXT,
+	Id TEXT
+
+);\
+_______________________________________________________________________________\
+\
+SYNOPSIS: Get a list of all near earth objects in the database\
+QUERY (GET): /ceo/<\'91designation_list'>/\
+RESPONSE: a list of near earth objects strings\
+EXAMPLE: http://whatever.com/ceo/designation_list/\
+	['(2007 AG)', (2014 SC324)', '4660 Nereus (1982 DB)']\
+\
+SYNOPSIS: Get a dictionary of data for a specific asteroid given a designation\
+QUERY (GET): /ceo/<designation>/\
+RESPONSE: a dictionary with keys 'date', 'V relative (km/s)\'92, 'H (mag)', 'Close-Approach (CA) Date', 'diameter', and 'velocity'\
+EXAMPLE: http://whatever.com/ceodesignation/\
+	['date': '2880-03-16.99\'92, \'91'Close-Approach (CA): 1900-Jan-11 01:03\'92, 'diameter': 43, 'velocity': 14.1]\
+\
+SYNOPSIS: Get a list of close earth approaches (names) with the given date\
+QUERY (GET): /ceo/<date>/\
+RESPONSE: a list of designations (string names) with the given date\
+EXAMPLE: http://whatever.com/ceo/date/\
+	['(2007 AG)', (2014 SC324)', '4660 Nereus (1982 DB)']\
+\
+SYNOPSIS: Get a list of all close earth approaches (names) with it\'92s diameters\
+QUERY (GET): /ceo/<neo>/diameter/\
+RESPONSE: a list of designations (string names)\
+EXAMPLE: http://whatever.com/ceo/-1.23/\
+	['(2007 AG)\'92: 250 m -  570 m, '(2014 SC324)\'92: 37 m -   82 m, '4660 Nereus (1982 DB)\'92:\'92610 m -  1.4 km\'92]}

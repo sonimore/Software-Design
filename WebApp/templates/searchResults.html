@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head> 
+	<script type = "text/javascript" src = "{{ url_for('static', filename= 'neos-config.js')}}" ></script>
+	<script type = "text/javascript" src = " {{ url_for('static', filename= neos.js') }}" ></script>
+	<title> Search for a Near Earth Object </title>
+</head>
+
+<body>
+	<div id = "header">
+		<h1> Search for a NEOs Object</h1>
+	</div>
+
+
+	<div id = "content"
+		<p><button id = "searchButton" onclick = "onSearchButton()">Search</button></p>
+
+	<p><table id="results_table"></table></p>
+
+	<p> Compact Results for (search thing) </p>
+	<tr><th>Designation</th><th>Type</th><th>Approach Date</th></tr>
+    <td><A HREF = '(extendedResults.html)'> (Name of object)</A></td><td>(NEO or Asteroid)</td><td>(Year)</td></tr>
+    </table>
+
+</body>
+</html>

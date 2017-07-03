@@ -1,0 +1,70 @@
+/*
+    homepage.css
+    
+    Ethan Somes
+    Sonia Moreno 
+    May 15, 2017
+    
+    style sheet for homepage.html
+
+    CS 257, Spring 2017.
+*/
+
+table {
+    border-collapse: collapse;
+    text-align: left;
+    color: white; 
+ 	font-family: 'Open Sans Condensed', sans-serif;
+}
+
+th, td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+body {
+	color: white; 
+ 	font-family: 'Open Sans Condensed', sans-serif;
+    margin: 100px;
+    padding: 30px;
+    height: 100%;
+    text-align: center; 
+    opacity: .8; 
+  	z-index: -1;
+  	background: url(http://pos.jungheemun.com/images/night_sky_animated_by_toxtheerisian-d4gh9ct.gif);
+}
+
+#header {
+ color: white; 
+ font-family: 'Open Sans Condensed', sans-serif; 
+ font-size: 64px; 
+ font-weight: 700; 
+ line-height: 64px; 
+ margin: 0 0 0; 
+ padding: 20px 30px; 
+ text-align: center; 
+ text-transform: uppercase;
+ opacity: .8; 
+ z-index: -1;
+ background: url(http://pos.jungheemun.com/images/night_sky_animated_by_toxtheerisian-d4gh9ct.gif);
+}
+
+
+html { 
+  background: url(http://pos.jungheemun.com/images/night_sky_animated_by_toxtheerisian-d4gh9ct.gif) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+/* unvisited link */
+a:link {
+    color: #3094ff;
+}
+
+/* visited link */
+a:visited {
+    color: #b1ecf9;
+}
+
